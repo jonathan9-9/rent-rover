@@ -168,6 +168,7 @@ const Modal: React.FC<ModalProps> = ({
                     />
                   )}
                   <Button
+                    outline
                     disabled={disabled}
                     label={actionLabel}
                     onClick={handleSubmit}
