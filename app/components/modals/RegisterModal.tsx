@@ -86,6 +86,23 @@ const RegisterModal = () => {
         icon={FcGoogle}
         onClick={() => {}}
       />
+      <Button
+        outline
+        label="Continue with Github"
+        icon={AiFillGithub}
+        onClick={() => {}}
+      />
+      <div className="text-center text-neutral-500">
+        <div className="flex flex-row justify-center gap-2">
+          <div>Already have an account?</div>
+          <div
+            onClick={registerModal.onClose}
+            className="hover:underline cursor-pointer text-neutral-800"
+          >
+            Log in
+          </div>
+        </div>
+      </div>
     </div>
   );
   return (
