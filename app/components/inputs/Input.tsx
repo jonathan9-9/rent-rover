@@ -24,6 +24,7 @@ const Input: React.FC<InputProps> = ({
   register,
   errors,
 }) => {
+  console.log("field errors: ", errors);
   return (
     <div className="w-full relative">
       {formatPrice && (

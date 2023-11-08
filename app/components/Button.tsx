@@ -20,12 +20,12 @@ const Button: React.FC<ButtonProps> = ({
   small,
   icon: Icon,
 }) => {
-  const [hovered, setHovered] = useState(false);
-  const onHover = (hover: boolean) => {
-    if (hover) {
-      setHovered(hover);
-    }
-  };
+  // const [hovered, setHovered] = useState(false);
+  // const onHover = (hover: boolean) => {
+  //   if (hover) {
+  //     setHovered(hover);
+  //   }
+  // };
   return (
     <button
       onClick={onClick}
@@ -37,20 +37,21 @@ const Button: React.FC<ButtonProps> = ({
   rounded-lg
   w-full
   transition
+  hover:bg-black hover:text-white bg-white text-black
   ${outline ? "bg-white" : "bg-black"}
   ${outline ? "border-black" : "bg-white"}
   ${outline ? "text-black" : "text-white"}
   ${small ? "py-1" : "py-3"}
   ${small ? "font-light" : "font-semibold"}
   ${small ? "border-[1px]" : "border-2"}
-  ${hovered ? "hover:bg-black hover:text-white" : "bg-white text-black"}
+
   `}
-      onMouseEnter={() => {
-        onHover(true);
-      }}
-      onMouseLeave={() => {
-        onHover(false);
-      }}
+      // onMouseEnter={() => {
+      //   onHover(true);
+      // }}
+      // onMouseLeave={() => {
+      //   onHover(false);
+      // }}
     >
       {Icon && (
         <Icon
