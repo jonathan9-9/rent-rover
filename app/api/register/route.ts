@@ -18,3 +18,7 @@ export async function POST(request: Request) {
   });
   return NextResponse.json(user);
 }
+
+// bcrypt to hash our password
+// prisma client to connect our data to the mongo db
+// NextResponse an extension of Response object to return the newly created user as a JSON response
