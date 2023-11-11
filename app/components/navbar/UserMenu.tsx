@@ -3,6 +3,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import Avatar from "../Avatar";
 import { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
+import useRentModal from "@/app/hooks/useRentModal";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { signOut } from "next-auth/react";
@@ -14,6 +15,7 @@ interface UserMenuProps {
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
+  const rentModal = useRentModal();
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
@@ -21,6 +23,13 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
+
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen();
+    }
+    rentModal.onOpen();
+  }, [currentUser, loginModal, rentModal]);
 
   const handleClickAway = () => {
     setIsOpen(false);
@@ -31,7 +40,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       <div className="relative">
         <div className="flex flex-row gap-3 items-center">
           <div
-            onClick={() => {}}
+            onClick={onRent}
             className="
         hidden
         md:block
