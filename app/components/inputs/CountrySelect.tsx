@@ -1,6 +1,5 @@
 "use client";
 import useCountries from "@/app/hooks/useCountries";
-import { BiCollapse } from "react-icons/bi";
 import Select from "react-select";
 
 export type CountrySelectValue = {
