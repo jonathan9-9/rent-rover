@@ -4,6 +4,7 @@ import { SafeUser, SafeListing } from "@/app/types";
 import { categories } from "@/app/components/navbar/Categories";
 import Container from "@/app/components/Container";
 import { useMemo } from "react";
+import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingHead from "@/app/components/listings/ListingHead";
 
 interface ListingClientProps {
@@ -32,6 +33,17 @@ const ListingClient: React.FC<ListingClientProps> = ({
             id={listing.id}
             currentUser={currentUser}
           />
+          <div className="grid grid-cols-1 md:grid-cols7 md:gap-10 mt-6">
+            <ListingInfo
+              user={listing.user}
+              category={category}
+              roomCount={listing.roomCount}
+              description={listing.description}
+              guestCount={listing.guestCount}
+              bathroomCount={listing.bathroomCount}
+              locationValue={listing.locationValue}
+            />
+          </div>
         </div>
       </div>
     </Container>
