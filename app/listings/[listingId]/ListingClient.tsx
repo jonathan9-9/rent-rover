@@ -6,9 +6,19 @@ import Container from "@/app/components/Container";
 import { useMemo } from "react";
 import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingHead from "@/app/components/listings/ListingHead";
+import useLoginModal from "@/app/hooks/useLoginModal";
+import { useRouter } from "next/navigation";
+import { eachDayOfInterval } from "date-fns";
+import { useState } from "react";
+
+const initialDateRange = {
+  startDate: new Date(),
+  endDate: new Date(),
+  key: "selection",
+};
 
 interface ListingClientProps {
-  reservation?: Reservation[];
+  reservations?: Reservation[];
   listing: SafeListing & {
     user: SafeUser;
   };
@@ -18,10 +28,33 @@ interface ListingClientProps {
 const ListingClient: React.FC<ListingClientProps> = ({
   listing,
   currentUser,
+  reservations = [],
 }) => {
+  const loginModal = useLoginModal();
+  const router = useRouter();
+
+  const disabledDates = useMemo(() => {
+    let dates: Date[] = [];
+
+    reservations.forEach((reservation) => {
+      const range = eachDayOfInterval({
+        start: new Date(reservation.startDate),
+        end: new Date(reservation.endDate),
+      });
+
+      dates = [...dates, ...range];
+    });
+    return dates;
+  }, [reservations]);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(listing.price);
+  const [dateRange, setDateRange] = useState(initialDateRange);
+
   const category = useMemo(() => {
     return categories.find((item) => item.label === listing.category);
   }, [listing.category]);
+
   return (
     <Container>
       <div className="max-w-screen-lg mx-auto">
