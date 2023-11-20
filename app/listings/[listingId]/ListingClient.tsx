@@ -3,13 +3,12 @@ import { Reservation } from "@prisma/client";
 import { SafeUser, SafeListing } from "@/app/types";
 import { categories } from "@/app/components/navbar/Categories";
 import Container from "@/app/components/Container";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingHead from "@/app/components/listings/ListingHead";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { useRouter } from "next/navigation";
-import { eachDayOfInterval } from "date-fns";
-import { useState } from "react";
+import { differenceInDays, eachDayOfInterval } from "date-fns";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -50,7 +49,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
   }, [reservations]);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [totalPrice] = useState(listing.price);
+  const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState(initialDateRange);
 
   const onCreateReservation = useCallback(() => {
@@ -78,6 +77,18 @@ const ListingClient: React.FC<ListingClientProps> = ({
         setIsLoading(false);
       });
   }, [listing?.id, totalPrice, dateRange, router, currentUser, loginModal]);
+
+  useEffect(() => {
+    if (dateRange.startDate && dateRange.endDate) {
+      const dayCount = differenceInDays(dateRange.endDate, dateRange.startDate);
+
+      if (dayCount && listing.price) {
+        setTotalPrice(dayCount * listing.price);
+      } else {
+        setTotalPrice(listing.price);
+      }
+    }
+  }, [listing.price, dateRange]);
 
   const category = useMemo(() => {
     return categories.find((item) => item.label === listing.category);
