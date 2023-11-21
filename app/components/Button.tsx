@@ -10,6 +10,7 @@ interface ButtonProps {
   outline?: boolean;
   small?: boolean;
   icon?: IconType;
+  calendarButton?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -20,12 +21,6 @@ const Button: React.FC<ButtonProps> = ({
   small,
   icon: Icon,
 }) => {
-  // const [hovered, setHovered] = useState(false);
-  // const onHover = (hover: boolean) => {
-  //   if (hover) {
-  //     setHovered(hover);
-  //   }
-  // };
   return (
     <button
       onClick={onClick}
@@ -45,13 +40,8 @@ const Button: React.FC<ButtonProps> = ({
   ${small ? "font-light" : "font-semibold"}
   ${small ? "border-[1px]" : "border-2"}
 
+
   `}
-      // onMouseEnter={() => {
-      //   onHover(true);
-      // }}
-      // onMouseLeave={() => {
-      //   onHover(false);
-      // }}
     >
       {Icon && (
         <Icon
