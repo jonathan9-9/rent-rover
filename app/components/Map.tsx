@@ -23,7 +23,7 @@ interface MapProps {
 const Map: React.FC<MapProps> = ({ center }) => {
   return (
     <MapContainer
-      center={(center as L.LatLngExpression) || [34, -97]}
+      center={(center as L.LatLngExpression) || [51, -0.09]}
       zoom={center ? 4 : 2}
       scrollWheelZoom={false}
       className="h-[35vh] rounded-lg"
