@@ -3,7 +3,7 @@ import getCurrentUser from "./getCurrentUser";
 
 export default async function getFavorites() {
   try {
-    const currentUser = getCurrentUser();
+    const currentUser = await getCurrentUser();
 
     if (!currentUser) {
       return [];
@@ -19,7 +19,7 @@ export default async function getFavorites() {
 
     const safeFavorites = favorites.map((favorite) => ({
       ...favorite,
-      createdAt: favorite.createdAt.toISOString(),
+      createdAt: favorite.createdAt.toString(),
     }));
 
     return safeFavorites;
