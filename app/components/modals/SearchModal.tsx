@@ -75,6 +75,18 @@ const SearchModal = () => {
     if (dateRange.endDate) {
       updatedQuery.endDate = formatISO(dateRange.endDate);
     }
+
+    const url = queryString.stringifyUrl(
+      {
+        url: "/",
+        query: updatedQuery,
+      },
+      { skipNull: true }
+    );
+
+    setStep(STEPS.LOCATION);
+    searchModal.onClose();
+    router.push(url);
   }, [
     location?.value,
     dateRange,
@@ -84,6 +96,8 @@ const SearchModal = () => {
     step,
     params,
     onNext,
+    router,
+    searchModal,
   ]);
 
   return (
