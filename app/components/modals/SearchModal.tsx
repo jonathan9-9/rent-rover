@@ -7,8 +7,9 @@ import queryString from "query-string";
 import { useState, useMemo, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { Range } from "react-date-range";
-import { CountrySelectValue } from "../inputs/CountrySelect";
+import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
 import { formatISO } from "date-fns";
+import Heading from "../Heading";
 
 enum STEPS {
   LOCATION = 0,
@@ -116,6 +117,21 @@ const SearchModal = () => {
     return "Back";
   }, [step]);
 
+  let bodyContent = (
+    <div className="flex flex-col gap-8">
+      <Heading
+        title="Where would you like to go"
+        subtitle="Find your ideal spot"
+      />
+      <CountrySelect
+        value={location}
+        onChange={(value) => setLocation(value as CountrySelectValue)}
+      />
+      <hr />
+      <Map center={location?.latlng} />
+    </div>
+  );
+
   return (
     <Modal
       isOpen={searchModal.isOpen}
@@ -123,6 +139,7 @@ const SearchModal = () => {
       onSubmit={searchModal.onOpen}
       title="Filters"
       actionLabel="Search"
+      body={bodyContent}
     />
   );
 };
