@@ -152,9 +152,11 @@ const SearchModal = () => {
     <Modal
       isOpen={searchModal.isOpen}
       onClose={searchModal.onClose}
-      onSubmit={searchModal.onOpen}
+      onSubmit={onSubmit}
       title="Filters"
-      actionLabel="Search"
+      actionLabel={actionLabel}
+      secondaryActionLabel={secondaryActionLabel}
+      secondaryAction={step === STEPS.LOCATION ? undefined : onBack}
       body={bodyContent}
     />
   );
