@@ -8,8 +8,9 @@ import { useState, useMemo, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { Range } from "react-date-range";
 import CountrySelect, { CountrySelectValue } from "../inputs/CountrySelect";
-import { formatISO } from "date-fns";
+import { formatISO, setDate } from "date-fns";
 import Heading from "../Heading";
+import Calendar from "../inputs/Calendar";
 
 enum STEPS {
   LOCATION = 0,
@@ -131,6 +132,21 @@ const SearchModal = () => {
       <Map center={location?.latlng} />
     </div>
   );
+
+  if (step === STEPS.DATE) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="When do you plan to go?"
+          subtitle="This will be a great experience!"
+        />
+        <Calendar
+          value={dateRange}
+          onChange={(value) => setDateRange(value.selection)}
+        />
+      </div>
+    );
+  }
 
   return (
     <Modal
