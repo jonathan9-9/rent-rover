@@ -35,13 +35,14 @@ export default async function RootLayout({
       <html lang="en">
         <body className={font.className}>
           <Suspense fallback={<FallBack />}>
-            <ToasterProvider />
-            <RentModal />
-            <SearchModal />
-            <RegisterModal />
-            <LoginModal />
             <Navbar />
+            <SearchModal />
           </Suspense>
+          <ToasterProvider />
+          <RentModal />
+          <RegisterModal />
+          <LoginModal />
+
           <div className="pb-20 pt-28">{children}</div>
         </body>
       </html>
