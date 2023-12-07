@@ -8,6 +8,7 @@ import ToasterProvider from "./providers/ToasterProvider";
 import LoginModal from "./components/modals/LoginModal";
 import RentModal from "./components/modals/RentModal";
 import SearchModal from "./components/modals/SearchModal";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,22 +21,30 @@ export const metadata: Metadata = {
   description: "Book Airbnb",
 };
 
+function FallBack() {
+  return <>Place holder</>;
+}
+
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={font.className}>
-        <ToasterProvider />
-        <RentModal />
-        <SearchModal />
-        <RegisterModal />
-        <LoginModal />
-        <Navbar />
-        <div className="pb-20 pt-28">{children}</div>
-      </body>
-    </html>
+    <>
+      <html lang="en">
+        <body className={font.className}>
+          <Suspense fallback={<FallBack />}>
+            <ToasterProvider />
+            <RentModal />
+            <SearchModal />
+            <RegisterModal />
+            <LoginModal />
+            <Navbar />
+          </Suspense>
+          <div className="pb-20 pt-28">{children}</div>
+        </body>
+      </html>
+    </>
   );
 }
