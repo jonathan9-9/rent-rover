@@ -7,45 +7,39 @@ import RegisterModal from "./components/modals/RegisterModal";
 import ToasterProvider from "./providers/ToasterProvider";
 import LoginModal from "./components/modals/LoginModal";
 import RentModal from "./components/modals/RentModal";
+import ClientOnly from "./components/ClientOnly";
 import SearchModal from "./components/modals/SearchModal";
-import { Suspense } from "react";
-
-const inter = Inter({ subsets: ["latin"] });
-
-const font = Nunito({
-  subsets: ["latin"],
-});
+import getCurrentUser from "./actions/getCurrentUser";
 
 export const metadata: Metadata = {
   title: "Airbnb",
   description: "Book Airbnb",
 };
 
-function FallBack() {
-  return <>Place holder</>;
-}
+const font = Nunito({
+  subsets: ["latin"],
+});
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const currentUser = await getCurrentUser();
   return (
-    <>
-      <html lang="en">
-        <body className={font.className}>
-          <Suspense fallback={<FallBack />}>
-            <Navbar />
-            <SearchModal />
-          </Suspense>
+    <html lang="en">
+      <body className={font.className}>
+        <ClientOnly>
+          <Navbar currentUser={currentUser} />
+          <SearchModal />
           <ToasterProvider />
           <RentModal />
           <RegisterModal />
           <LoginModal />
+        </ClientOnly>
 
-          <div className="pb-20 pt-28">{children}</div>
-        </body>
-      </html>
-    </>
+        <div className="pb-20 pt-28">{children}</div>
+      </body>
+    </html>
   );
 }

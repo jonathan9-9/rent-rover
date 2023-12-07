@@ -6,11 +6,13 @@ import Search from "./Search";
 import UserMenu from "./UserMenu";
 
 import Categories from "./Categories";
-import ClientOnly from "../ClientOnly";
+import { SafeUser } from "@/app/types";
 
-const Navbar = async () => {
-  const currentUser = await getCurrentUser();
+interface NavbarProps {
+  currentUser?: SafeUser | null;
+}
 
+const Navbar: React.FC<NavbarProps> = async ({ currentUser }) => {
   return (
     <div className="fixed w-full bg-white z-10 shadow-sm">
       <div
@@ -31,16 +33,13 @@ const Navbar = async () => {
             "
           >
             <Logo />
-            <ClientOnly>
-              <Search />
-              <UserMenu currentUser={currentUser} />
-            </ClientOnly>
+            <Search />
+            <UserMenu currentUser={currentUser} />
           </div>
         </Container>
       </div>
-      <ClientOnly>
-        <Categories />
-      </ClientOnly>
+
+      <Categories />
     </div>
   );
 };
