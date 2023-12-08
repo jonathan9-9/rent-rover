@@ -9,6 +9,8 @@ interface HomeProps {
   searchParams: IListingParams;
 }
 
+export const dynamic = "force-dynamic";
+
 const Home = async ({ searchParams }: HomeProps) => {
   // using server-component instead of an API call via getListings()
 
@@ -28,7 +30,7 @@ const Home = async ({ searchParams }: HomeProps) => {
     <ClientOnly>
       <Container>
         <div className="pt-24 gap-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-          {listings.map((listing) => {
+          {listings.map((listing: any) => {
             return (
               <ListingCard
                 key={listing.id}
